@@ -5,6 +5,11 @@
 #include <ngx_core.h>
 #include <ngx_http.h>
 
+enum {
+    NGX_HTTP_FOOTER_STATUS_BYPASS = 0,
+    NGX_HTTP_FOOTER_STATUS_APPEND = 1
+};
+
 typedef struct {
     ngx_hash_t                types;
     ngx_array_t              *types_keys;

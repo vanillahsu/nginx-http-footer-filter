@@ -5,6 +5,7 @@
 
 
 #include "ngx_http_footer_filter_module.h"
+#include "ngx_http_footer_var.h"
 
 static char *ngx_http_footer_filter(ngx_conf_t *cf, ngx_command_t *cmd,
     void *conf);
@@ -256,6 +257,6 @@ ngx_http_footer_filter_init(ngx_conf_t *cf)
     ngx_http_next_header_filter = ngx_http_top_header_filter;
     ngx_http_top_header_filter = ngx_http_footer_header_filter;
 
-    return NGX_OK;
+    return ngx_http_footer_add_variables(cf);
 }
 

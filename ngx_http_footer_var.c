@@ -1,5 +1,10 @@
 #include "ngx_http_footer_var.h"
 
+static ngx_str_t ngx_http_footer_status[] = {
+    ngx_string("BYPASS"),
+    ngx_string("APPEND")
+};
+
 static ngx_http_variable_t ngx_http_footer_variables[] = {
 
     { ngx_string("footer_status"), NULL,
@@ -13,15 +18,26 @@ static ngx_int_t
 ngx_http_footer_status_variable(ngx_http_request_t *r,
     ngx_http_variable_value_t *v, uintptr_t data)
 {
+    ngx_uint_t             status;
     ngx_http_footer_ctx_t *ctx;
 
     ctx = ngx_http_get_module_ctx(r, ngx_http_footer_filter_module);
     if (ctx == NULL) {
+        status = NGX_HTTP_FOOTER_STATUS_BYPASS;
+
+    } else if (ctx->append) {
+        status = NGX_HTTP_FOOTER_STATUS_APPEND;
+
+    } else {
+        status = NGX_HTTP_FOOTER_STATUS_BYPASS;
     }
 
     v->valid = 1;
     v->no_cacheable = 1;
     v->not_found = 0;
+
+    v->len = ngx_http_footer_status[status].len;
+    v->data = ngx_http_footer_status[status].data;
 
     return NGX_OK;
 }
