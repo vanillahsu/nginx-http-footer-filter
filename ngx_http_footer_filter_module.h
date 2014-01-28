@@ -10,6 +10,8 @@ enum {
     NGX_HTTP_FOOTER_STATUS_APPEND = 1
 };
 
+extern ngx_module_t  ngx_http_footer_filter_module;
+
 typedef struct {
     ngx_hash_t                types;
     ngx_array_t              *types_keys;

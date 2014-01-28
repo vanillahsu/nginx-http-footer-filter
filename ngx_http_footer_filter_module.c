@@ -108,6 +108,7 @@ ngx_http_footer_header_filter(ngx_http_request_t *r)
         r->headers_out.content_length = NULL;
     }
 
+    ctx->append = 1;
     ngx_http_clear_accept_ranges(r);
 
     return ngx_http_next_header_filter(r);

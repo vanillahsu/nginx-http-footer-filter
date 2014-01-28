@@ -1,5 +1,8 @@
 #include "ngx_http_footer_var.h"
 
+static ngx_int_t ngx_http_footer_status_variable(ngx_http_request_t *r,
+    ngx_http_variable_value_t *v, uintptr_t data);
+
 static ngx_str_t ngx_http_footer_status[] = {
     ngx_string("BYPASS"),
     ngx_string("APPEND")
@@ -44,7 +47,7 @@ ngx_http_footer_status_variable(ngx_http_request_t *r,
 
 
 ngx_int_t
-ngx_http_footer_add_variable(ngx_conf_t *cf)
+ngx_http_footer_add_variables(ngx_conf_t *cf)
 {
     ngx_http_variable_t *var, *v;
 
